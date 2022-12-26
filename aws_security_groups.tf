@@ -1,7 +1,7 @@
 resource "aws_security_group" "metrics_collector" {
   name     = "${var.module_name}_${random_string.uid.result}"
 
-  description = "Allow all the necessary traffic for the metrics collector instance"
+  description = "Allow all the necessary traffic for the metrics collector instance."
   vpc_id      = data.aws_vpc.vpc.id
   
   tags = {
@@ -12,7 +12,7 @@ resource "aws_security_group" "metrics_collector" {
   }
 }
 
-resource "aws_security_group_rule" "vault_egress" {
+resource "aws_security_group_rule" "example_egress" {
   type                     = "egress"
   description              = "Used as example for a sample port."
   from_port                = var.sample_port

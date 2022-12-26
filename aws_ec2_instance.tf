@@ -1,6 +1,7 @@
 data "aws_availability_zones" "metrics_collector" {
   state = "available"
 }
+
 resource "aws_ebs_volume" "metrics_" {
   availability_zone = var.metrics_collector_availability_zone
   size              = 10

@@ -15,35 +15,35 @@ variable "subnet_ids" {
 }
 
 variable "ssh_authorized_keys" {
-  description = "List of SSH public keys to authorized access on the core user of the Logs collector."
   type        = list(string)
   default     = []
+  description = "List of SSH public keys to authorized access on the core user of the Logs collector."
 }
 
 variable "s3_bucket_fedora_core_os_base_arn" {
-  description = "The arn used in configuring access policies on the AWS S3 bucket."
   type        = string
+  description = "The arn used in configuring access policies on the AWS S3 bucket."
 }
 
 variable "fedora_core_config_path" {
   type        = string
-  description = "The url which points to the fedora base config on s3. In there are is the shared basic configuration."
+  description = "The url which points to the fedora base config on s3. Can be used to access a shared ignition base file"
 }
 
 variable "hosted_zone" {
+  type        =  string
   description = "The route53 hosted zone where records reside in."
-  type        =  string 
 }
 
 variable "metrics_collector_dns_record" {
-  description = "The route53 dns record for the metrics collector."
   type        =  string 
+  description = "The route53 dns record used to expose the metrics collector."
 }
 
 variable "ami_id" {
-  description = "The ami id which the operating system to use."
   type        = string
   default     = "fedora-coreos-34.20210626.3.2-x86_64"
+  description = "The ami id which makes the choice of operating system for the instance."
 }
 
 variable "instance_type" {
@@ -72,39 +72,39 @@ variable "instance_min_count" {
 }
 
 variable "metrics_collector_region" {
-  description = "The region from which to scrap all the metrics."
   type        = string
   default     = "eu-central-1"
+  description = "The aws region from which to scrap the metrics endpoints."
 }
 
 variable "metrics_collector_storage_path"{
-  description = "The prometheus persistens storage location."
   type        = string
   default     = "/etc/prometheus/data"
+  description = "The prometheus persistency storage location."
 }
 
 variable "metrics_collector_availability_zone" {
-  description = "The metrics collector availability zone in which the instance and the ebs volume reside."
   type        = string
   default     = "eu-central-1a"
+  description = "The metrics collector availability zone in which the instance and the ebs volume will reside."
 }
 
 variable "prometheus_container_image" {
-  description = "The prometheus server container."
   type        = string
   default     = "docker.io/prom/prometheus"
+  description = "The prometheus oci image location used for fetching it."
 }
 
 variable "blackbox_oci_image" {
-  description = "The blackbox oci image."
   type        = string
   default     = "docker.io/prom/blackbox-exporter:master"
+  description = "The blackbox oci image location used for fetching it."
 }
 
 variable "blackbox_exporter_port" {
-  description = "Port where the blackbox exporter is exposing it's information."
   type        = number
   default     = 9115
+  description = "Port where the blackbox exporter is exposing it's information."
 }
 
 variable "blackbox_targets" {
@@ -112,9 +112,9 @@ variable "blackbox_targets" {
     domain    = string
   }))
   default     = []
-  description = "List of blackbox_targets."
+  description = "List of blackbox targets used to probe endpoints over HTTP, HTTPS, DNS, TCP, ICMP, gRPC."
 }
-
+a
 variable "prometheus_aws_jobs" {
   type = list(object({
     name             = string
@@ -125,11 +125,11 @@ variable "prometheus_aws_jobs" {
     use_format_params = string
   }))
   default     = []
-  description = "List of prometheus jobs for metrics collection."
+  description = "List of prometheus endpoint configuration used in targeting and scrapping metrics."
 }
 
 variable "reverse_proxy_image" {
-  description = "The nginx image to use."
   type        = string
   default     = "docker.io/library/nginx"
+  description = "The nginx oci image location used for fetching it."
 }
