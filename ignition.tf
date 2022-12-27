@@ -83,6 +83,17 @@ storage:
       format: ext4 
       with_mount_unit: true 
   files:
+    - path: /etc/zincati/config.d/90-disable-auto-updates.toml
+      mode: 0644 
+      user: 
+        name: root 
+      group: 
+        name: root 
+      contents: 
+        inline: | 
+          [updates]
+          enabled = false 
+          
     - path: /etc/blackbox-exporter/blackbox.yml
       mode: 0755
       user: 
