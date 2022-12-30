@@ -21,3 +21,13 @@ resource "aws_security_group_rule" "example_egress" {
   cidr_blocks              = [data.aws_vpc.vpc.cidr_block]
   security_group_id        = aws_security_group.metrics_collector.id
 }
+
+resource "aws_security_group_rule" "ssh_access" {
+  type                     = "ingress"
+  description              = "Used to access the metrics collector over ssh."
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  cidr_blocks              = ["0.0.0.0/0"]
+  security_group_id        = aws_security_group.metrics_collector.id
+}

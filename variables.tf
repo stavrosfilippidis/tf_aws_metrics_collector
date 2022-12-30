@@ -20,25 +20,15 @@ variable "ssh_authorized_keys" {
   description = "List of SSH public keys to authorized access on the core user of the Logs collector."
 }
 
-variable "s3_bucket_fedora_core_os_base_arn" {
-  type        = string
-  description = "The arn used in configuring access policies on the AWS S3 bucket."
-}
+# variable "hosted_zone" {
+#   type        =  string
+#   description = "The route53 hosted zone where records reside in."
+# }
 
-variable "fedora_core_config_path" {
-  type        = string
-  description = "The url which points to the fedora base config on s3. Can be used to access a shared ignition base file"
-}
-
-variable "hosted_zone" {
-  type        =  string
-  description = "The route53 hosted zone where records reside in."
-}
-
-variable "metrics_collector_dns_record" {
-  type        =  string 
-  description = "The route53 dns record used to expose the metrics collector."
-}
+# variable "metrics_collector_dns_record" {
+#   type        =  string 
+#   description = "The route53 dns record used to expose the metrics collector."
+# }
 
 variable "ami_id" {
   type        = string
@@ -107,6 +97,12 @@ variable "blackbox_exporter_port" {
   description = "Port where the blackbox exporter is exposing it's information."
 }
 
+variable "sample_port" {
+  type        = number
+  default     = 9100
+  description = "The port used to scrap node exporter metrics."
+}
+
 variable "blackbox_targets" {
   type = list(object({
     domain    = string
@@ -114,7 +110,7 @@ variable "blackbox_targets" {
   default     = []
   description = "List of blackbox targets used to probe endpoints over HTTP, HTTPS, DNS, TCP, ICMP, gRPC."
 }
-a
+
 variable "prometheus_aws_jobs" {
   type = list(object({
     name             = string

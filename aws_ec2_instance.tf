@@ -2,7 +2,7 @@ data "aws_availability_zones" "metrics_collector" {
   state = "available"
 }
 
-resource "aws_ebs_volume" "metrics_" {
+resource "aws_ebs_volume" "metrics_collector" {
   availability_zone = var.metrics_collector_availability_zone
   size              = 10
 
@@ -21,7 +21,7 @@ resource "aws_volume_attachment" "ebs_att" {
  }
 
 resource "aws_instance" "metrics_collector" {
-  ami                     =   data.aws_ami.fedora_coreos.id
+  ami                     =   data.aws_ami.fedora_core_os.id
   instance_type           =   var.instance_type
   availability_zone       =   var.metrics_collector_availability_zone
 

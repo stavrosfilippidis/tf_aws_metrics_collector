@@ -8,10 +8,10 @@ output "metrics_collector_instance_ip" {
   description = "The metrics collector instance private ip used for ssh access."
 }
 
-output "metrics_collector_instance_dns_record" {
-  value       = "https://${aws_route53_record.metrics_collector.name}.${data.aws_route53_zone.hosted_zone.name}:${var.reverse_proxy_metrics_collector_port}"
-  description = "Metrics collector dns record used for easy access."
-}
+# output "metrics_collector_instance_dns_record" {
+#   value       = "https://${aws_route53_record.metrics_collector.name}.${data.aws_route53_zone.hosted_zone.name}:${var.reverse_proxy_metrics_collector_port}"
+#   description = "Metrics collector dns record used for easy access."
+# }
 
 
 

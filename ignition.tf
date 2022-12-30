@@ -2,10 +2,6 @@ locals {
   ignition_metrics_collector = <<EOF
 variant: fcos
 version: 1.3.0
-ignition:
-  config: 
-    merge: 
-     - source: ${var.fedora_core_config_path}
 passwd:
   users:
     - name: core
@@ -48,7 +44,7 @@ systemd:
         TimeoutStartSec=0
         ExecStartPre=/bin/sleep 5
         ExecStartPre=/usr/bin/podman pull docker.io/prom/prometheus 
-        ExecStart=/usr/bin/podman run --log-driver journald --net="host" --pid="host" -v ${var.tls_files_path}:${var.tls_files_path} -v ${var.metrics_collector_storage_path}:/storage -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml ${var.prometheus_container_image} --config.file /etc/prometheus/prometheus.yml --storage.tsdb.path /storage
+        ExecStart=/usr/bin/podman run --log-driver journald --net="host" --pid="host" -v ${var.metrics_collector_storage_path}:/storage -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml ${var.prometheus_container_image} --config.file /etc/prometheus/prometheus.yml --storage.tsdb.path /storage
         User=core 
         Group=core
         Restart=always 
@@ -77,11 +73,11 @@ storage:
         name: core 
       group: 
         name: core       
-  filesystems:
-    - path:  ${var.metrics_collector_storage_path} 
-      device: /dev/nvme1n1 
-      format: ext4 
-      with_mount_unit: true 
+  #filesystems:
+  #  - path:  ${var.metrics_collector_storage_path} 
+  #    device: /dev/nvme1n1 
+  #    format: ext4 
+  #    with_mount_unit: true 
   files:
     - path: /etc/zincati/config.d/90-disable-auto-updates.toml
       mode: 0644 
@@ -93,7 +89,7 @@ storage:
         inline: | 
           [updates]
           enabled = false 
-          
+
     - path: /etc/blackbox-exporter/blackbox.yml
       mode: 0755
       user: 
@@ -147,7 +143,7 @@ storage:
                   - target_label: __address__
                     replacement: localhost:${var.blackbox_exporter_port}
 
-            %{for job in var.prometheus_targets}
+            %{for job in var.prometheus_aws_jobs}
               - job_name: ${job.name}
                 scheme: http
                 metrics_path: ${job.metrics_path} 
