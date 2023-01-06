@@ -14,25 +14,9 @@ variable "subnet_ids" {
   description = "List of subnet IDs to deploy the metrics collector."
 }
 
-variable "ssh_authorized_keys" {
-  type        = list(string)
-  default     = []
-  description = "List of SSH public keys to authorized access on the core user of the Logs collector."
-}
-
-# variable "hosted_zone" {
-#   type        =  string
-#   description = "The route53 hosted zone where records reside in."
-# }
-
-# variable "metrics_collector_dns_record" {
-#   type        =  string 
-#   description = "The route53 dns record used to expose the metrics collector."
-# }
-
 variable "ami_id" {
   type        = string
-  default     = "fedora-coreos-34.20210626.3.2-x86_64"
+  default     = "fedora-coreos-37.20221211.3.0-x86_64"
   description = "The ami id which makes the choice of operating system for the instance."
 }
 
@@ -79,6 +63,12 @@ variable "metrics_collector_availability_zone" {
   description = "The metrics collector availability zone in which the instance and the ebs volume will reside."
 }
 
+variable "node_exporter_image_name" {
+  type        = string
+  default     = "docker.io/prom/node-exporter:latest"
+  description = "The node exporter oci image location used for exposing metrics."
+}
+
 variable "prometheus_container_image" {
   type        = string
   default     = "docker.io/prom/prometheus"
@@ -95,12 +85,6 @@ variable "blackbox_exporter_port" {
   type        = number
   default     = 9115
   description = "Port where the blackbox exporter is exposing it's information."
-}
-
-variable "sample_port" {
-  type        = number
-  default     = 9100
-  description = "The port used to scrap node exporter metrics."
 }
 
 variable "blackbox_targets" {
@@ -128,4 +112,10 @@ variable "reverse_proxy_image" {
   type        = string
   default     = "docker.io/library/nginx"
   description = "The nginx oci image location used for fetching it."
+}
+
+variable "authorized_key" {
+  type        = string
+  default     = ""
+  description = "SSH key used to grant access to the machine spawned with this configuration."
 }

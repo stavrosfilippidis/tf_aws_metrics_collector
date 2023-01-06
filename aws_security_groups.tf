@@ -12,16 +12,6 @@ resource "aws_security_group" "metrics_collector" {
   }
 }
 
-resource "aws_security_group_rule" "example_egress" {
-  type                     = "egress"
-  description              = "Used as example for a sample port."
-  from_port                = var.sample_port
-  to_port                  = var.sample_port 
-  protocol                 = "tcp"
-  cidr_blocks              = [data.aws_vpc.vpc.cidr_block]
-  security_group_id        = aws_security_group.metrics_collector.id
-}
-
 resource "aws_security_group_rule" "ssh_access" {
   type                     = "ingress"
   description              = "Used to access the metrics collector over ssh."
@@ -29,5 +19,15 @@ resource "aws_security_group_rule" "ssh_access" {
   to_port                  = 22
   protocol                 = "tcp"
   cidr_blocks              = ["0.0.0.0/0"]
+  security_group_id        = aws_security_group.metrics_collector.id
+}
+
+resource "aws_security_group_rule" "prometheus_ingress" {
+  type                     = "ingress"
+  description              = "Used to connect and integrate the prometheus in other places."
+  from_port                = 9090
+  to_port                  = 9090
+  protocol                 = "tcp"
+  cidr_blocks              = [data.aws_vpc.default.cidr_block] 
   security_group_id        = aws_security_group.metrics_collector.id
 }
