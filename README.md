@@ -15,7 +15,7 @@ and easiness of configuration.
 Prometheus collects metrics from targets (services, applications, or systems) by scraping endpoints exposed by the targets. It stores these metrics in a time-series database that allows for querying and analysis of historical data. Prometheus also provides a flexible query language called PromQL that allows for advanced querying and aggregation of metrics.  
 
 Find out more under:  
-https://prometheus.io/docs/introduction/overview/  
+https://prometheus.io/docs/introduction/overview/   
 
 **Fedora CoreOS** is a minimal, container-focused operating system designed for running containerized workloads securely and at scale. It is a lightweight and streamlined version of Fedora, which is a popular Linux distribution known for its focus on cutting-edge software and open source development.
 
@@ -26,11 +26,11 @@ https://docs.fedoraproject.org/en-US/fedora-coreos/
 
 ## Variables 
 
-**Required** 
-vpc_id 
-subnet_ids 
+**Required**  
+vpc_id  
+subnet_ids  
 
-**Optional** 
+**Optional**  
 module_name  
 ami_id  
 instance_type  
@@ -39,15 +39,15 @@ instance_desired_count
 instance_max_count  
 instance_min_count  
 metrics_collector_region  
-metrics_collector_storage_path  
-metrics_collector_availability_zone  
-node_exporter_image_name  
-prometheus_container_image 
-blackbox_oci_image  
-blackbox_exporter_port  
-blackbox_targets  
-prometheus_aws_jobs  
-reverse_proxy_image  
+metrics_collector_storage_path   
+metrics_collector_availability_zone   
+node_exporter_image_name   
+prometheus_container_image  
+blackbox_oci_image   
+blackbox_exporter_port   
+blackbox_targets   
+prometheus_aws_jobs   
+reverse_proxy_image   
 authorized_key  
 
 
