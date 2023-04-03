@@ -159,7 +159,7 @@ storage:
                   - targets:
                       %{for target in var.blackbox_targets}
                        - ${target.domain} 
-                      %{endfor}
+                      %{endfor~}
                 relabel_configs:
                   - source_labels: [__address__]
                     target_label: __param_target
